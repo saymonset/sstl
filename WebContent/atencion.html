@@ -1,0 +1,313 @@
+
+<div ng-include="getInclude()"></div>
+
+<div class="main" ng-controller="atencionCtrl">
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-12 col-xs-12" ng-hide="showIngHorario">
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-star"></i>
+						<h3>{{modulo}}/{{gruponbModificar}}/{{subGruponbModificar}}/{{actividad}}/{{nbHorario}}</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+							<h3>Atencion {{miembros.length}}/{{numeroCupos}}</h3>
+
+							<form method="post" name="myFormAct" novalidate>
+
+								<div class="panel">
+									<h3 class="panel-header"></h3>
+
+
+
+									<div class="form-group">
+										<label for="nb_actividad">Cedula</label><input
+											id="searchCedula" name="searchCedula" value="" required
+											class="form-control" ng-model="searchCedula" ng-minlength="3"
+											ng-maxlength="50" ng-pattern="matchPattern" />
+									</div>
+
+
+									<table class="table table-striped">
+										<thead>
+											<tr>
+                                                <th>Nombre</th>		
+												<th>Tipo Empleado</th>
+												<th>Cedula</th>
+												<th>Profesor</th>
+												<th>Renovable</th>
+												<th>Fecha renovaci&oacute;n</th>
+
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr
+												ng-repeat="item in miembros | filter:{cedula: searchCedula}">
+                                                <td>{{item.nombre}}</td>
+												<td>{{item.tipoEmp}}</td>
+												<td>{{item.cedula}}</td>
+												<td><input type="checkbox" ng-disabled="true"
+													ng-model="item.profesor"></td>
+												<td><input type="checkbox" ng-disabled="true"
+													ng-model="item.renovable"></td>
+												<td ng-show="item.renovable"><span
+													ng-show="item.renovableVencido" class="label label-default"
+													ng-class="item.renovableVencido ? 'label label-danger' : ''">
+														{{item.feRenovacion | date:'dd/MM/yyyy'}} </span>
+													<p ng-hide="item.renovableVencido">{{item.feRenovacion
+														| date:'dd/MM/yyyy'}}</p></td>
+												<td ng-hide="item.renovable"></td>
+												<td>
+													<button ng-hide="item.renovableVencido"
+														ng-click="showHorario(item.nbModulo,item.nbActividad,item.cedula);"
+														class="btn btn-primary">Atenci&oacute;n</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+
+
+									<div class="form-group">
+										<button ng-click="eliminar(selectionDelete)"
+											ng-show="selectionDelete.length>0" class="btn btn-primary">Eliminar</button>
+									</div>
+
+
+
+
+								</div>
+
+
+								<!-- .actions -->
+
+							</form>
+
+
+						</div>
+						<!-- /shortcuts -->
+
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+
+
+
+
+
+
+
+			</div>
+			<!-- /span12 -->
+
+
+			<div class="col-md-12" ng-show="showIngHorario">
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-group"></i>
+						<h3>Atenci&oacute;n {{miembros.length}}/{{numeroCupos}}</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+							<div class="alert alert-success" ng-if="aviso">
+								<strong>{{aviso}}</strong>
+							</div>
+
+
+							<form method="post" name="myFormAct" novalidate>
+								<div class="panel">
+									<div class="col-md-6">
+										<h3 ng-hide="checkboxModel.isConfigHorario"
+											class="panel-header">Horario</h3>
+										<h3 ng-show="checkboxModel.isConfigHorario"
+											class="panel-header">Seleccione los d&iacute;as del
+											horario</h3>
+
+										<!-- HORARIO -->
+										<daypilot-calendar id="week" daypilot-config="weekConfig"
+											daypilot-events="events"></daypilot-calendar>
+
+
+									</div>
+									<div class="col-md-6">
+										<div class="well">
+
+                                            <p>Nombre: {{miembroDto.nombre}}</p>
+											<p>Tipo Empleado: {{miembroDto.tipoEmp}}</p>
+											<p>Cedula: {{miembroDto.cedula}}</p>
+											<p>
+											<table class="table table-striped"
+												ng-show="horarioSeleccionado.length>0">
+												<thead>
+													<tr>
+														<th>Titulo</th>
+														<th>Comienzo</th>
+														<th>Fin</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="item in horarioSeleccionado">
+														<td>{{item.text}}</td>
+														<td>{{item.start}}</td>
+														<td>{{item.end}}</td>
+													</tr>
+												</tbody>
+											</table>
+											</p>
+
+
+
+											<div class="form-group" ng-show="isAtencionRealizada">
+												<label for="atencionRealizada">Atenci&oacute;n
+													Realizada</label><input id="atencionRealizada"
+													name="atencionRealizada" value="" required
+													class="form-control" ng-model="atencionRealizada"
+													ng-minlength="3" ng-maxlength="50"
+													ng-pattern="matchPattern" />
+											</div>
+											<div ng-show="horarioSeleccionado.length>0"
+												class="form-group">
+												<label>Atenci&oacute;n Realizada: <input
+													type="checkbox" ng-model="isAtencionRealizada">
+												</label> <input id="atencionRealizada" type="hidden"
+													ng-hide="isAtencionRealizada" name="atencionRealizada"
+													value="null" />
+											</div>
+
+
+
+
+											<p>
+											<div class="form-group">
+												<button ng-show="horarioSeleccionado.length>0"
+													ng-click="atencion(horarioSeleccionado[0].text,horarioSeleccionado[0].id,horarioSeleccionado[0].start,horarioSeleccionado[0].end,modulo,actividad,miembroDto.cedula,atencionRealizada)"
+													class="btn btn-primary">Aceptar</button>
+
+												<button ng-click="cancelar()" class="btn btn-primary">Cancelar</button>
+											</div>
+											<div class="alert alert-warning" ng-show="diaPrevious">
+												<strong>Dia anterior!</strong> No es el dia de hoy.
+											</div>
+											<div class="alert alert-info" ng-show="diaNext">
+												<strong>Dia siguiente!</strong> No es el dia de hoy.
+											</div>
+											<div class="alert alert-danger" ng-show="diaBusy">
+												<strong>D&iacute;a asignado!</strong> El d&iacute;a ya fue
+												asignado.
+											</div>
+											</p>
+
+										</div>
+
+									</div>
+									<div class="col-md-6">
+<!-- 										<canvas id="myChart" width="400" height="400"></canvas> -->
+									</div>
+								</div>
+							</form>
+
+							<script type="text/ng-template" id="myModalContentDelete.html">
+          <div class="modal-header">
+             <h3 class="modal-title">Importante!</h3>
+        </div>
+        <div class="modal-body">
+ 
+        <div class="modal-body">
+<span class = "label label-danger">{{msg}}</span>
+
+                
+        </div>
+
+<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>Tipo Empleado</th>
+												<th>Cedula</th>
+												<th>Profesor</th>
+												<th>Renovable</th>
+												<th>Fecha renovaci&oacute;n</th>
+
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr
+												ng-repeat="item in items">
+												<td>{{item.tipoEmp}}</td>
+												<td>{{item.cedula}}</td>
+												<td><input type="checkbox" ng-disabled="true"
+													ng-model="item.profesor"></td>
+												<td><input type="checkbox" ng-disabled="true"
+													ng-model="item.renovable"></td>
+												<td ng-show="item.renovable">{{item.feRenovacion |
+													date:'dd/MM/yyyy'}}</td>
+												<td ng-hide="item.renovable"></td>
+												 
+											</tr>
+										</tbody>
+									</table>
+           
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+
+
+							<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Importante!</h3>
+        </div>
+        <div class="modal-body">
+               <span class = "label label-danger">{{msg}}</span>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Aceptar</button>
+        </div>
+    </script>
+						</div>
+						<!-- /shortcuts -->
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+
+			</div>
+			<!-- /span6 -->
+
+
+
+
+
+			<div class="col-md-6"></div>
+			<!-- /span6 -->
+
+		</div>
+		<!-- /row -->
+
+	</div>
+	<!-- /container -->
+
+
+</div>
+<!-- /main -->

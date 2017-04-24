@@ -1,0 +1,66 @@
+
+
+<div ng-include="getInclude()"></div>
+
+<div class="main" ng-controller="dashBoardCtrl">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-12 col-xs-12">
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-star"></i>
+						<h3>Modulos</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+					
+				
+
+						<div class="shortcuts">
+						
+							<a  href="javascript:;" ng-repeat="item in objetos" class="shortcut"
+								ng-click="loadData(item.nbModulo,username,cedula);"> <i
+								class="shortcut-icon icon-globe"></i> <span
+								class="shortcut-label">{{item.nbModulo}} </span>
+							</a>  
+						
+						
+
+
+						</div>
+						<!-- /shortcuts -->
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+
+
+
+
+
+
+
+			</div>
+			<!-- /span6 -->
+
+
+			<div class="col-md-6"></div>
+			<!-- /span6 -->
+
+		</div>
+		<!-- /row -->
+
+	</div>
+	<!-- /container -->
+
+</div>
+<!-- /main -->
+

@@ -1,0 +1,107 @@
+ 
+    <div ng-include="getInclude()"></div>
+    
+<div class="main" ng-controller="actividadCtrl">
+
+    <div class="container">
+
+      <div class="row">
+      
+      <div class="col-md-12">	
+      		
+      		
+      		<div class="widget stacked">
+					
+				<div class="widget-header">
+					<i class="icon-headphones"></i>
+					<h3> {{modulo}}/{{gruponbModificar}}/{{subGruponbModificar}}/{{actividad}}/{{nbHorario}}</h3>
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
+					
+					<div class="shortcuts">
+					
+					<a href="#" class="shortcut"
+				 					ng-click="loadConfiguracion(modulo,actividad);">
+									<i class="shortcut-icon icon-cog"></i> <span
+									class="shortcut-label">Configuraci&oacute;n</span>
+						</a> 
+					 
+				    	<a href="#" class="shortcut" ng-show="seguridadDto.horarioShow"
+				 					ng-click="loadHorario(modulo,grupo,subGrupo,gruponbModificar,subGruponbModificar,actividad,nbHorario);">
+									<i class="shortcut-icon icon-time"></i> <span
+									class="shortcut-label">Horario</span>
+						</a> 
+							<a href="javascript:;" class="shortcut" 
+							ng-show="seguridadDto.inscripcionShow"
+						ng-click="loadInscripcion(modulo,actividad);">
+							<i class="shortcut-icon icon-edit"></i>
+							<span class="shortcut-label">Inscripci&oacute;n</span>								
+						</a>
+					
+						
+						<a href="javascript:;" class="shortcut"  
+						ng-show="seguridadDto.miembroShow"
+						ng-click="loadMiembro(modulo,actividad);">
+							<i class="shortcut-icon icon-group"></i>
+							<span class="shortcut-label">Miembros</span>								
+						</a>
+						
+						<a href="javascript:;" class="shortcut"
+						ng-show="seguridadDto.atencionShow"
+						ng-click="loadAtencion(modulo,actividad);"
+						>
+							<i class="shortcut-icon icon-check"></i>
+							<span class="shortcut-label">Atenci&oacuten</span>								
+						</a>
+						
+						 
+						
+					</div> <!-- /shortcuts -->	
+				
+				</div> <!-- /widget-content -->
+				
+			</div> <!-- /widget -->
+      		
+      		<!--  
+      		  Dashboard estadisticas
+      		-->
+      		<div class="widget widget-nopad stacked">
+						
+				<div class="widget-header">
+					<i class="icon-list-alt"></i>
+					<h3>Control de asistencia de usuarios durante el turno {{nbHorario}}</h3>
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
+						<div class="shortcuts">
+							<a href="javascript:;" class="shortcut"
+								ng-click="inscripcionByModulo(modulo);"> <i
+								class="shortcut-icon icon-bar-chart"></i> <span
+								class="shortcut-label">Inscripciones {{nbHorario}}</span>
+							</a>
+							
+								<a href="javascript:;" class="shortcut"
+								ng-click="asistenciaByModulo(modulo);"> <i
+								class="shortcut-icon icon-bar-chart"></i> <span
+								class="shortcut-label">Asistencia {{nbHorario}}</span>
+							</a>
+						</div>
+				</div> <!-- /widget-content -->
+			
+			</div> <!-- /widget -->
+					
+		 
+					
+					
+ 
+								
+	      </div> <!-- /span6 -->
+      
+      	
+      </div> <!-- /row -->
+
+    </div> <!-- /container -->
+    
+</div> <!-- /main -->
+   

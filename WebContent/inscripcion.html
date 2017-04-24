@@ -1,0 +1,193 @@
+
+<div ng-include="getInclude()"></div>
+
+<div class="main" ng-controller="inscripcionCtrl">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-12 col-xs-12">
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-star"></i>
+						<h3>{{modulo}}/{{gruponbModificar}}/{{subGruponbModificar}}/{{actividad}}/{{nbHorario}}</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+
+							<div class="panel" ng-show="miembros.length>=numeroCupos">
+								<h3 class="panel-header">No hay cupos disponibles</h3>
+							</div>
+							
+							<div class="panel" ng-show="usuarioRegistrado">
+								<h3 class="panel-header">Usuario ya se encuentra registrado</h3>
+							</div>
+							
+							<div class="panel">
+								<h3 class="panel-header">{{aviso}}</h3>
+							</div>
+							
+							
+
+							<ul class="pager" ng-hide="miembros.length>=numeroCupos">
+								<form method="post" name="myFormAct" novalidate>
+
+									<div class="panel" ng-show="(pagContador==1)">
+										<h3 class="panel-header" ng-hide="accesoDirecto && nombre">Cedula</h3>
+
+										<div class="form-group" ng-hide="accesoDirecto">
+										
+											<input id="cedula" name="cedula" value="" required
+											    ng-change="cedulaEmpl()" 
+												class="form-control" ng-model="cedula" ng-minlength="3"
+												ng-maxlength="50" ng-pattern="matchPattern" />
+										</div>
+										
+										
+										
+										<div class="input-group" ng-show="accesoDirecto" ng-hide="nombre">
+										
+											<input id="cedula" name="cedula" value="" required
+											ng-disabled="accesoDirecto" ng-show="accesoDirecto"
+												class="form-control" ng-model="cedula" ng-minlength="3"
+												ng-maxlength="50" ng-pattern="matchPattern" />
+											
+											<span class="input-group-btn" ng-show="accesoDirecto">
+													<button class="btn btn-primary btn-block" ng-show="accesoDirecto"
+														ng-click="cedulaEmpl()">Aceptar</button>
+											</span>
+										</div>
+										
+										
+										
+										
+									
+										
+										
+									</div>
+									<div class="panel" ng-show="(pagContador==2)">
+										<div class="col-md-6">
+											<h3 ng-hide="checkboxModel.isConfigHorario"
+												class="panel-header">Horario</h3>
+											<h3 ng-show="checkboxModel.isConfigHorario"
+												class="panel-header">Seleccione los d&iacute;as del
+												horario</h3>
+											<daypilot-calendar id="week" daypilot-config="weekConfig"
+												daypilot-events="events"></daypilot-calendar>
+										</div>
+										<div class="col-md-6">
+											<label ng-show="personalizarHorario">Personalizar el Horario ? <input ng-show="personalizarHorario"
+												type="checkbox" ng-model="checkboxModel.isConfigHorario">
+											</label><br />
+
+											<div class="form-group"
+												ng-show="checkboxModel.isConfigHorario">
+												<h3 class="panel-header" ng-hide="isAvisoConfHorario">D&iacute;as
+													del horario</h3>
+												<h3 class="panel-header" ng-show="isAvisoConfHorario">Debe
+													seleccionar por lo menos un d&iacute;a en el horario</h3>
+												<table class="table table-striped">
+													<thead>
+														<tr>
+															<th>Titulo</th>
+															<th>Comienzo</th>
+															<th>Fin</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="item in horarioSeleccionado">
+															<td>{{item.text}}</td>
+															<td>{{item.start}}</td>
+															<td>{{item.end}}</td>
+															<td><a ng-click="deleteBloque(item)"
+																href="javascript:;">Eliminar</a></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+										</div>
+									</div>
+
+
+									<div class="panel" ng-show="(pagContador==3)">
+										<div class="col-md-6">
+											<h3 ng-hide="checkboxModel.isConfigHorario"
+												class="panel-header">Horario</h3>
+											<h3 ng-show="checkboxModel.isConfigHorario"
+												class="panel-header">Seleccione los d&iacute;as del
+												horario</h3>
+
+											<daypilot-calendar id="week" daypilot-config="weekConfig"
+												daypilot-events="events"></daypilot-calendar>
+
+
+										</div>
+										<div class="col-md-6">
+											<div class="well">
+											    <p>Nombre: {{nombre}}</p>
+											    <p>Tipo de empleado: {{tipoEmp}}</p>
+												<p>Cedula: {{cedula}}</p>
+												<p ng-hide="accesoDirecto">
+													<input name="renovable"
+														ng-click="fechaRenovacion(modulo,actividad)"
+														type="checkbox" ng-model="renovable"> Renovable
+												</p>
+												<p ng-show="renovable" >Renovar en la fecha
+													{{miembroDtoInscripcion.fechaStr}}</p>
+												<p ng-hide="accesoDirecto">
+													<input name="profesor" type="checkbox" ng-model="profesor">
+													Es profesor?
+												</p>
+												
+											</div>
+
+										</div>
+									</div>
+
+
+
+
+									<!-- .actions -->
+									<li><a ng-hide="(pagContador==1)"
+										ng-click="goPagContadorBack(pagContador)" href="javascript:;">Previous</a></li>
+									<li><a ng-click="goPagContadorNext(pagContador,cedula)"
+										ng-hide="myFormAct.$invalid || (pagContador==3) || nombre==null "
+										href="javascript:;"> Siguiente </a></li>
+									<li><a
+										ng-click="saveInscripcion(modulo,grupo,subGrupo,actividad,nbHorario,cedula,renovable,profesor,miembroDtoInscripcion.fechaStr)"
+										ng-show="(pagContador==3 && nombre!=null)" href="javascript:;"> Aceptar </a></li>
+										 
+								</form>
+							</ul>
+						</div>
+					</div>
+					<!-- /shortcuts -->
+
+
+				</div>
+				<!-- /widget-content -->
+
+			</div>
+			<!-- /widget -->
+
+		</div>
+		<!-- /span6 -->
+
+		<div class="col-md-6"></div>
+		<!-- /span6 -->
+
+	</div>
+	<!-- /row -->
+
+</div>
+<!-- /container -->
+
+</div>
+<!-- /main -->

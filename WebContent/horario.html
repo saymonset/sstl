@@ -1,0 +1,85 @@
+
+<div ng-include="getInclude()"></div>
+
+<div class="main" ng-controller="horarioCtrl">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-time"></i>
+                        <h3>{{modulo}}/{{gruponbModificar}}/{{subGruponbModificar}}/{{actividad}}/{{nbHorario}}</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+
+
+							<div class="panel panel-primary">
+
+								<daypilot-calendar id="week" daypilot-config="weekConfig"
+									daypilot-events="events"></daypilot-calendar>
+
+								<div>
+									Nuevo bloque de Horas: 
+									<button ng-click="add()">Agregar</button>
+								</div>
+
+
+
+
+								<div id="angularRegion">
+									<div class="panel-body" ng-show="displayMode == 'edit'">
+										<div class="form-group">
+											<label>Nombre:</label> <input class="form-control"
+												ng-model="text" ng-minlength="1" maxlength="50"
+											ng-maxlength="50" />
+										</div>
+
+										<input type="hidden" name="id" id="id" value="{{id}}" />
+										<button class="btn btn-primary" ng-click="saveEdit(modulo,grupo,subGrupo,actividad,nbHorario,text,id,start,end)">Guardar</button>
+										<button class="btn btn-primary" ng-click="remove(modulo,grupo,subGrupo,actividad,nbHorario,text,id)">Eliminar</button>
+										<button class="btn btn-primary" ng-click="cancelEdit()">Cancelar</button>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+						<!-- /shortcuts -->
+
+					</div>
+					<!-- /widget-content -->
+
+				 
+
+			 
+
+				</div>
+				<!-- /widget -->
+
+
+
+
+
+			</div>
+			<!-- /span6 -->
+
+			 
+
+		</div>
+		<!-- /row -->
+
+	</div>
+	<!-- /container -->
+
+</div>
+<!-- /main -->

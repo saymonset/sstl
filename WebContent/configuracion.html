@@ -1,0 +1,196 @@
+
+<div ng-include="getInclude()"></div>
+
+<div class="main" ng-controller="configuracionCtrl">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-6 col-xs-12">
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-star"></i>
+						<h3>{{modulo}}/{{gruponbModificar}}/{{subGruponbModificar}}/{{actividad}}/{{nbHorario}}</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts" ng-hide="isModificar">
+
+
+							<div class="form-group">
+								<label>{{aviso}}</label>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Nombre Parametro</th>
+											<th>Valor Parametro</th>
+											<th>Obsevaci&oacute;n</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in objetos">
+											<td>{{item.txNombreParametro}}</td>
+											<td>{{item.txValorParametro}}</td>
+											<td><a href="javascript:;"
+												ng-click="modificar(modulo,actividad,item.txNombreParametro,item.txValorParametro,item.txObservaciones,item.tipoParametro,item.personalizarHorario);">
+													{{item.txObservaciones!=''?item.txObservaciones:'---------'}}</a></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+
+
+
+
+						</div>
+						<!-- /shortcuts -->
+
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+
+
+
+
+
+
+
+			</div>
+			<!-- /span6 -->
+
+
+			<div class="col-md-6" ng-show="isModificar">
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-bookmark"></i>
+						<h3></h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+
+							<form method="post" name="myFormAct" novalidate>
+
+								<div class="panel">
+									<h3 class="panel-header"></h3>
+
+									<div class="form-group">
+										<label for="nb_nombre">Nombre del Parametro</label> <input
+											id="txNombreParametro" name="txNombreParametro" value=""
+											required ng-disabled="isModificar" class="form-control"
+											ng-model="txNombreParametro" ng-minlength="1"
+											ng-maxlength="50" ng-pattern="matchPattern" />
+									</div>
+
+
+									<div class="form-group" ng-hide="isModificar">
+										<label>El Valor del Parametro es tipo Fecha ? <input
+											type="checkbox" ng-disabled="isModificar" ng-model="isFecha">
+										</label>
+									</div>
+
+									<div class="form-group" ng-show="isFecha" ng-hide="isModificar">
+										<label for="nb_valor">Valor del Parametro</label>
+
+										<pre>Fecha seleccionada: <em>{{dt | date:'fullDate' }}</em>
+									</pre>
+
+										<div style="display: inline-block; min-height: 290px;">
+											<div uib-datepicker ng-model="dt" class="well well-sm"
+												datepicker-options="options"></div>
+										</div>
+
+										<hr />
+										<button type="button" class="btn btn-sm btn-info"
+											ng-click="today()">Hoy</button>
+
+
+									</div>
+
+									<div class="form-group" ng-hide="isFecha || isBoolean">
+										<label for="nb_valor">Valor del Parametro </label> <input
+											id="txValorParametro" name="txValorParametro" value=""
+											required class="form-control" ng-model="txValorParametro"
+											ng-minlength="1" ng-maxlength="200" ng-pattern="matchPattern" />
+									</div>
+
+									<div class="form-group" ng-show="isBoolean">
+										<label>Acceso Directo a los usuarios para que se inscriban ?</label> <select
+										    ng-selected="txValorParametro"
+											ng-model="txValorParametro"
+											ng-options="item.valor as item.valor for item in booleans">
+											 
+										</select>
+									</div>
+									
+									<div class="form-group" ng-show="verPersonalizar_horario">
+										<label>El usuario personaliza su Horario ? <input
+											type="checkbox"   ng-model="personalizar_horario">
+										</label>
+									</div>
+									
+
+
+									<div class="form-group">
+										<label for="nb_observacion">Observaci&oacute;n del
+											Parametro</label>
+										<textarea id="txObservaciones" name="txObservaciones" value=""
+											required class="form-control" ng-model="txObservaciones"
+											ng-minlength="1" ng-maxlength="400" ng-pattern="matchPattern">
+											</textarea>
+									</div>
+
+									<div class="form-group">
+										<button
+											ng-click="update(modulo,actividad,txNombreParametro,txValorParametro,txObservaciones,tipo)"
+											class="btn btn-primary" ng-disabled="myFormAct.$invalid">Aceptar</button>
+									</div>
+								</div>
+
+
+								<!-- .actions -->
+
+							</form>
+
+						</div>
+						<!-- /shortcuts -->
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+
+			</div>
+			<!-- /span6 -->
+
+
+
+
+
+			<div class="col-md-6"></div>
+			<!-- /span6 -->
+
+		</div>
+		<!-- /row -->
+
+	</div>
+	<!-- /container -->
+
+</div>
+<!-- /main -->

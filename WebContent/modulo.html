@@ -1,0 +1,243 @@
+
+<div ng-include="getInclude()"></div>
+
+<div class="main" ng-controller="moduloCtrl">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-6 col-xs-12">
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-headphones"></i>
+						<h3>{{modulo}}</h3>
+						<h3>{{aviso}}</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+
+							<div class="form-group">
+								<label>Actualizar Actividad: <input type="checkbox"
+									ng-model="isVerFormActualizarActividad">
+								</label>
+							</div>
+
+							<div class="form-group">
+								<a href="javascript:;" ng-click="goToCrearActividad()"
+									class="shortcut" ng-hide="isCreateActividad"> <i
+									class="shortcut-icon icon-plus-sign"></i> <span
+									class="shortcut-label">Crear Actividad</span>
+								</a>
+							</div>
+
+
+
+
+							<form method="post" name="myFormAct" novalidate
+								ng-show="isCreateActividad">
+
+								<div class="panel">
+									<h3 class="panel-header">Actividad</h3>
+
+									<div class="form-group">
+										<label for="nb_actividad">Nombre Actividad</label><input
+											id="nb_actividad" name="nb_actividad" value="" required
+											class="form-control" ng-model="nb_actividad" ng-minlength="3"
+											ng-maxlength="50" ng-pattern="matchPattern" />
+									</div>
+
+									<button ng-click="crearActividad(nb_actividad)"
+										class="btn btn-primary" ng-disabled="myFormAct.$invalid">Aceptar</button>
+									<button ng-click="goToCancelarActividad()"
+										class="btn btn-primary">Cancelar</button>
+								</div>
+
+
+								<!-- .actions -->
+
+							</form>
+
+
+							<script type="text/ng-template" id="myModalContentDelete.html">
+      						    <div class="modal-header">
+       						      <h3 class="modal-title">Importante!</h3>
+       						    </div>
+       							<div class="modal-body">
+                   					<span class = "label label-danger">{{msg}}</span>
+       							</div>
+        						<div class="modal-footer">
+          							  <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+         							  <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+   							    </div>
+    						</script>
+
+						</div>
+						<!-- /shortcuts -->
+
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+				
+				
+				
+				
+  		<div class="widget widget-nopad stacked">
+						
+				<div class="widget-header">
+					<i class="icon-list-alt"></i>
+					<h3>Asistencia</h3>
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
+						<div class="shortcuts">
+							<a href="javascript:;" class="shortcut"
+								ng-click="inscripcionByModulo(modulo);"> <i
+								class="shortcut-icon icon-bar-chart"></i> <span
+								class="shortcut-label">Inscripciones</span>
+							</a>
+							<a href="javascript:;" class="shortcut"
+								ng-click="asistenciaByModulo(modulo);"> <i
+								class="shortcut-icon icon-bar-chart"></i> <span
+								class="shortcut-label">Asistencia</span>
+							</a>
+							<a href="javascript:;" class="shortcut"
+								ng-click="atencionByModulo(modulo);"> <i
+								class="shortcut-icon icon-bar-chart"></i> <span
+								class="shortcut-label">Atenciones</span>
+							</a>
+						</div>
+				</div> <!-- /widget-content -->
+			
+			</div> <!-- /widget -->	
+					
+										
+ 
+      		
+				
+				
+
+
+
+
+
+
+
+			</div>
+			<!-- /span6 -->
+
+
+			<div class="col-md-6">
+
+				<div class="widget stacked" ng-hide="isVerFormActualizarActividad">
+
+					<div class="widget-header">
+						<i class="icon-star-empty"></i>
+						<h3>Actividades Creadas</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+
+							<a href="#" class="shortcut" ng-repeat="item in actividades"
+								ng-click="loadData(item.nbActividad,item.nbModulo,username,cedula);">
+								<i class="shortcut-icon icon-android"></i> <span
+								class="shortcut-label">{{item.nbActividad}}</span>
+							</a>
+						</div>
+						<!-- /shortcuts -->
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+
+			</div>
+			<!-- /span6 -->
+
+
+
+			
+			<div class="col-md-6 col-xs-12">
+				<div class="widget stacked" ng-show="isVerFormActualizarActividad">
+
+					<div class="widget-header">
+						<i class="icon-cog"></i>
+						<h3>Actividades para Actualizar</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+							<a href="javascript:;" ng-repeat="item in actividades"
+								ng-click="goToActualizarActividad(item.nbActividad,item.nbActividad,item.delete)"
+								class="shortcut" ng-hide="isActualizarActividad"> <i
+								class="shortcut-icon icon-cogs"></i> <span
+								class="shortcut-label">{{item.nbActividad}} </span>
+							</a>
+						</div>
+						<!-- /shortcuts -->
+
+
+						<form method="post" name="myFormActUpd" novalidate
+							ng-show="isActualizarActividad">
+
+							<div class="panel">
+								<h3 class="panel-header">Actividad</h3>
+
+								<div class="form-group">
+									<label for="nbActividadModif">Nombre Actividad</label><input
+										id="nbActividadModif" name="nbActividadModif" value=""
+										required class="form-control" ng-model="nbActividadModif"
+										ng-minlength="3" ng-maxlength="50" ng-pattern="matchPattern" />
+								</div>
+
+
+
+								<div class="form-group"></div>
+								<button
+									ng-click="actualizar(modulo,nb_actividad,nbActividadModif)"
+									ng-disabled="myFormActUpd.$invalid" class="btn btn-primary">Aceptar</button>
+
+								<button ng-click="deleteActividad(modulo,nb_actividad)"
+									class="btn btn-primary" ng-show="isDelete"
+									ng-disabled="myFormActUpd.$invalid">Delete</button>
+								<button ng-click="goToCancelarActualizarActividad()"
+									class="btn btn-primary">Cancelar</button>
+							</div>
+
+
+							<!-- .actions -->
+							<div id="centrado"></div>
+						</form>
+
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+
+			</div>
+			<!-- /span6 -->
+
+		</div>
+		<!-- /row -->
+
+	</div>
+	<!-- /container -->
+
+</div>
+<!-- /main -->

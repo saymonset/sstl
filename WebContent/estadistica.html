@@ -1,0 +1,86 @@
+
+<div ng-include="getInclude()"></div>
+
+<div class="main" ng-controller="estadisticaCtrl">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-6 col-xs-12">
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-star"></i>
+						<h3>{{modulo}}/{{gruponbModificar}}/{{subGruponbModificar}}/{{actividad}}/{{nbHorario}}</h3>
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+
+
+							<div class="panel panel-primary">
+								<daypilot-calendar id="week" daypilot-config="weekConfig"
+									daypilot-events="events"></daypilot-calendar>
+
+
+
+
+								<div id="angularRegion">
+									<div class="panel-body" ng-show="displayMode == 'edit'">
+									 
+										<div class="form-group">
+											<label>Comentario:</label> <label>{{text}}</label>
+										</div>
+										<div class="form-group">
+											<label>Atenci&oacute;n realizada o Observaci&oacute;n:</label> <label>{{text}}</label>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+						<!-- /shortcuts -->
+
+
+					</div>
+					<!-- /widget-content -->
+
+				</div>
+				<!-- /widget -->
+
+
+
+
+
+
+
+			</div>
+			<!-- /span6 -->
+
+
+			 
+
+
+
+
+
+			<div class="col-md-6">
+			
+			<canvas id="myChart" width="400" height="400"></canvas>
+			</div>
+			<!-- /span6 -->
+
+		</div>
+		<!-- /row -->
+
+	</div>
+	<!-- /container -->
+
+</div>
+<!-- /main -->

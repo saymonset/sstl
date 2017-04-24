@@ -1,0 +1,24 @@
+ <daypilot-calendar id="week" 
+   daypilot-config="weekConfig"   daypilot-events="events" ></daypilot-calendar>
+   
+  <div>
+      New event:
+      <button ng-click="add()">Add</button>
+  </div>
+  <div>
+      First event:
+      <button ng-click="move()">Move</button>
+      <button ng-click="rename()">Rename</button>
+  </div>
+ 
+  <div>
+      Events array (debug):
+      <div ng-repeat="item in events">
+          {{item}}
+      </div>
+
+  </div>
+   <div>
+      Object:
+      <button ng-click="message()">Show Message</button>
+  </div>

@@ -1,0 +1,196 @@
+
+<div ng-include="getInclude()"></div>
+
+<div class="main" ng-controller="atencionByModuloCtrl">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+
+				<div class="widget stacked">
+
+					<div class="widget-header">
+						<i class="icon-headphones"></i>
+						<h3>
+							{{modulo}}/{{gruponbModificar}}/{{subGruponbModificar}}/{{nbActividadModificar}}/{{nbHorarioModificar}}</h3>
+
+					</div>
+					<!-- /widget-header -->
+
+					<div class="widget-content">
+
+						<div class="shortcuts">
+
+
+
+
+							<p>
+								<input name="fechaDesde" type="checkbox"
+									ng-click="defaultValuesNullDesdeCheck()"
+									ng-model="estadisticasByModuloDto.swFeDesde"> Fecha
+								Desde <em>{{estadisticasByModuloDto.feDesde |
+									date:'dd/MM/yyyy' }}</em>
+							</p>
+							<p>
+								<input name="fechaHasta" type="checkbox"
+									ng-click="defaultValuesNullHastaCheck()"
+									ng-model="estadisticasByModuloDto.swFeHasta"> Fecha
+								Hasta <em>{{estadisticasByModuloDto.feHasta|
+									date:'dd/MM/yyyy' }}</em>
+							</p>
+
+							<div class="form-group"
+								ng-show="estadisticasByModuloDto.swFeDesde">
+								<div style="display: inline-block; min-height: 290px;">
+									<div uib-datepicker ng-model="estadisticasByModuloDto.feDesde"
+										ng-click="defaultValuesCheck();" class="well well-sm"
+										datepicker-options="options"></div>
+								</div>
+								<hr />
+								<button type="button" class="btn btn-sm btn-info"
+									ng-click="today()">Hoy</button>
+							</div>
+							<div class="form-group"
+								ng-show="estadisticasByModuloDto.swFeHasta">
+								<div style="display: inline-block; min-height: 290px;">
+									<div uib-datepicker ng-model="estadisticasByModuloDto.feHasta"
+										ng-click="defaultValuesCheck();" class="well well-sm"
+										datepicker-options="options"></div>
+								</div>
+								<hr />
+								<button type="button" class="btn btn-sm btn-info"
+									ng-click="today()">Hoy</button>
+							</div>
+
+
+						</div>
+
+						<div id="chartContainer"></div>
+
+						<div ng-show="miembroAsistenciaHorarioDto.length >0">
+
+							<div class="form-group">
+								<label for="searchCedula">Cedula</label><input id="searchCedula"
+									name="searchCedula" value="" required class="form-control"
+									ng-model="searchCedula" ng-minlength="3" ng-maxlength="50" />
+							</div>
+
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Nombre</th>
+										<th>Tipo Empleado</th>
+										<th>Cedula</th>
+										<th>Profesor</th>
+										<th>Renovable</th>
+										<th>Fecha registro</th>
+										<th>Fecha renovaci&oacute;n</th>
+										<th>{{searchCedula}}</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="item in miembroAsistenciaHorarioDto | filter:{cedula: searchCedula} ">
+										<td>{{$index + 1}}</td>
+										<td>{{item.nombre}}</td>
+										<td>{{item.tipoEmp}}</td>
+										<td>{{item.cedula}}</td>
+										<td><input type="checkbox" ng-disabled="true"
+											ng-model="item.profesor"></td>
+										<td><input type="checkbox" ng-disabled="true"
+											ng-model="item.renovable"></td>
+										<td>{{item.feRegistro | date:'dd/MM/yyyy'}}</td>
+										<td ng-show="item.renovable"><span
+											ng-show="item.renovableVencido" class="label label-default"
+											ng-class="item.renovableVencido ? 'label label-danger' : ''">
+												{{item.feRenovacion | date:'dd/MM/yyyy'}} </span>
+											<p ng-hide="item.renovableVencido">{{item.feRenovacion |
+												date:'dd/MM/yyyy'}}</p></td>
+										<td ng-hide="item.renovable"></td>
+										<td>
+											<button ng-click="popup(item.asistenciaDtos)"
+												class="btn btn-primary">{{item.asistenciaDtos.length}}</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<h3>
+								<div class='text-right' class="alert alert-success">
+									Total = <strong>{{getTotal(miembroAsistenciaHorarioDto)}}</strong>
+								</div>
+							</h3>
+							<script type="text/ng-template" id="myModalContent.html">
+										  <div class="modal-header">
+											 <h3 class="modal-title">Importante!</h3>
+										  </div>
+      
+										  <div class="modal-body">
+											  <span class = "label label-danger">{{msg}}</span>
+										  </div>
+											<table class="table table-striped">
+													<thead>
+														<tr>
+															<th></th>
+                                                            <th>D&iacute;a</th>
+                                                            <th>Fecha</th>
+ 															<th>Hora</th>                                                           
+ 															<th>Actividad</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr
+															ng-repeat="item in items">
+                                                            <td>{{$index + 1}}</td>
+															<td>{{item.dia}}</td>
+                                                            <td>{{item.fecha}}</td>
+                                                            <td>{{item.start}}-{{item.end}}</td>
+                                                            <td>{{item.nbModulo}}/{{item.nbGrupo}}/{{item.nbSubGrupo}}/{{item.nbActividad}}/{{item.nbHorario}}</td>
+
+														</tr>
+													</tbody>
+												</table>
+           
+       									   </div>
+											<div class="modal-footer">
+												  <!--Hacer una busqueda de myModalContentDelete.html, para encontrar donde esta programadon este modal. this buttom are in ModalInstanceCtrl-->
+												<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+												<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+											</div>
+							</script>
+
+
+						</div>
+
+					</div>
+					<!-- /shortcuts -->
+
+				</div>
+				<!-- /widget-content -->
+
+			</div>
+			<!-- /widget -->
+
+
+
+
+
+
+
+
+		</div>
+		<!-- /span6 -->
+
+
+	</div>
+	<!-- /row -->
+
+</div>
+<!-- /container -->
+
+</div>
+<!-- /main -->

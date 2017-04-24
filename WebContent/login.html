@@ -1,0 +1,72 @@
+
+	<div id="loginId">
+	
+		
+    <div class="content">
+	<center>
+		<img alt="" src="img/logo-login.png">
+	</center>
+      </div>
+		<div class="account-container stacked">
+
+			<div class="content clearfix">
+
+			
+
+
+<form method="post" name="myForm" novalidate >
+ 
+
+
+
+
+				<input type="hidden" id="cedula" name="cedula" value="" />
+				<center>
+				<h1>Iniciar sesi&oacute;n</h1>
+				</center>
+				<div class="login-fields">
+
+					<p></p>
+
+					<div class="field">
+						<label for="username">Usuario:</label> <input type="text"
+							id="username" ng-model="username.login" name="username" value=""
+							placeholder="Username" required
+							class="form-control input-lg username-field" />
+					</div>
+					<!-- /field -->
+
+					<div class="field">
+						<label for="password">Contrase&ntilde;a:</label> <input type="password"
+							id="password" ng-model="username.password" name="password"
+							value="" placeholder="Password" required
+							class="form-control input-lg password-field" />
+					</div>
+					<!-- /password -->
+
+				</div>
+				<!-- /login-fields -->
+
+				<div class="login-actions">
+					<button class="login-action btn btn-primary" ng-click="loadData(username)"
+						ng-disabled="myForm.$invalid">Iniciar sesi&oacute;n </button>
+				</div>
+				<!-- .actions -->
+				<div id="centrado">
+						{{aviso}}							 
+    			</div>
+
+			</form>
+
+
+
+ 
+			</div>
+			<!-- /content -->
+
+		</div>
+		<!-- /account-container -->
+	</div>
+	
+
+

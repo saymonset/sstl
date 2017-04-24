@@ -1,0 +1,167 @@
+<nav class="navbar navbar-inverse" role="navigation">
+
+	<div class="container">
+
+
+
+
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="row">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <i class="icon-cog"></i>
+				</button>
+			</div>
+			<div class="col-md-12">
+				<center-rigth> <img class="img-responsive"
+					src="img/logo_head1.png" alt="Imagen responsive"> </center-rigth>
+
+
+
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					<ul class="nav navbar-nav navbar-right">
+
+
+                      
+						<li class="" >
+						  	<li ng-show="admin" ng-if="isCtrl=='accesosDirectosCtrl'" ><a ng-click="panel()" href="javascript:;">Panel</a></li>
+						  	<li ng-if="isCtrl=='dashBoardCtrl'" ><a ng-click="accesosDirectos()" href="javascript:;">Principal</a></li>
+						  	
+						  <li ng-if="isCtrl=='moduloAnioCtrl'">	<a href="#"		ng-click="accesosDirectos()" > Principal</a> </li>
+						   <li ng-if="isCtrl=='moduloAnioMesActividadCtrl'">	 <a href="#" ng-click="accesosDirectos()"> Principal</a> </li>
+						   <li ng-if="isCtrl=='moduloCtrl'"> <a href="#" ng-click="accesosDirectos()" > Principal</a></li>
+						   <li ng-if="isCtrl=='moduloAnioMesCtrl'"> <a href="#" ng-click="accesosDirectos()"> Principal</a></li>
+						    <li ng-if="isCtrl=='horarioNombreCtrl'"><a href="#" ng-click="accesosDirectos()">Principal</a></li>
+						    <li ng-if="isCtrl=='actividadCtrl'"> <a href="#" ng-click="accesosDirectos()">Principal</a></li>
+						    <li ng-if="isCtrl=='inscripcionByModuloCtrl'">  <a href="#" ng-click="accesosDirectos()"> Principal</a></li>
+						    <li ng-if="isCtrl=='asistenciaByModuloCtrl'"> <a href="#" ng-click="accesosDirectos()">Principal</a></li>
+						    <li ng-if="isCtrl=='atencionByModuloCtrl'"> <a href="#" ng-click="accesosDirectos()">Principal</a></li>
+						     <li ng-if="isCtrl=='horarioCtrl'"> <a href="#" ng-click="accesosDirectos()">Principal</a></li>
+						     <li ng-if="isCtrl=='miembroCtrl'">  <a href="#" ng-click="accesosDirectos()">Principal</a></li>
+						     <li ng-if="isCtrl=='atencionCtrl'"> <a href="#" ng-click="accesosDirectos()">Principal</a></li>
+						     <li ng-if="isCtrl=='estadisticaCtrl'"> <a href="#" ng-click="accesosDirectos()">Principal	</a></li>
+						     <li ng-if="isCtrl=='inscripcionCtrl' && !accesoDirecto">  <a href="#" ng-click="accesosDirectos()" >Principal</a></li> 
+					 <li ng-if="isCtrl=='inscripcionCtrl' && accesoDirecto" >  <a href="#" ng-click="accesosDirectos()">Principal</a></li>
+					<li ng-if="isCtrl=='configuracionCtrl'">  <a href="#" ng-click="accesosDirectos()"> Principal</a></li>
+						  	
+						  	
+						  	
+						</li>
+
+
+						<li class="dropdown">
+							<ul class="dropdown-menu">
+								<li><a href="./account.html">Account Settings</a></li>
+								<li><a href="javascript:;">Privacy Settings</a></li>
+								<li class="divider"></li>
+								<li><a href="javascript:;">Help</a></li>
+							</ul>
+						</li>
+
+						<li class="dropdown"><a href="javscript:;"
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="icon-user"></i> {{username}}    <b class="caret"></b>
+						</a>
+
+							<ul class="dropdown-menu">
+<!-- 								<li class="divider"></li> -->
+								<li><a ng-click="salir()" href="#">Salir</a></li>
+							</ul></li>
+					</ul>
+
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+		</div>
+		<!-- /.container -->
+</nav>
+
+
+<div class="subnavbar">
+
+	<div class="subnavbar-inner">
+
+		<div class="container">
+
+			<a href="javascript:;" class="subnav-toggle" data-toggle="collapse"
+				data-target=".subnav-collapse"> <span class="sr-only">Toggle
+					navigation</span> <i class="icon-reorder"></i>
+
+			</a>
+
+			<div class="collapse subnav-collapse">
+				<ul class="mainnav">
+
+
+					<li ng-if="isCtrl!='dashBoardCtrl'" class="active">
+					<a href="#"
+						ng-click="atras()" ng-if="isCtrl=='moduloAnioCtrl'"> <i
+							class="icon-home"></i> <span>Volver</span>
+					</a> <a href="#" ng-click="atras(modulo,grupo)"
+						ng-if="isCtrl=='moduloAnioMesActividadCtrl'"> <i
+							class="icon-home"></i> <span>Volver</span>
+					</a> <a href="#" ng-click="atras()" ng-if="isCtrl=='moduloCtrl'"> <i
+							class="icon-home"></i> <span>Volver</span>
+					</a> <a href="#" ng-click="atras(modulo)"
+						ng-if="isCtrl=='moduloAnioMesCtrl'"> <i class="icon-home"></i>
+							<span> Volver</span>
+					</a> <a href="#" ng-click="atras(modulo)"
+						ng-if="isCtrl=='horarioNombreCtrl'"> <i class="icon-home"></i>
+							<span> Volver</span>
+					</a> <a href="#" ng-click="atras(modulo)"
+						ng-if="isCtrl=='actividadCtrl'"> <i class="icon-home"></i> <span>
+								Volver</span>
+					</a> <a href="#" ng-click="atras(htmlGo,ctrlGo)"
+						ng-if="isCtrl=='inscripcionByModuloCtrl'"> <i
+							class="icon-home"></i> <span>Volver </span>
+					</a> <a href="#" ng-click="atras(htmlGo,ctrlGo)"
+						ng-if="isCtrl=='asistenciaByModuloCtrl'"> <i class="icon-home"></i>
+							<span>Volver</span>
+					</a> <a href="#" ng-click="atras(htmlGo,ctrlGo)"
+						ng-if="isCtrl=='atencionByModuloCtrl'"> <i class="icon-home"></i>
+							<span>Volver</span>
+					</a> <a href="#" ng-click="atras(modulo,actividad)"
+						ng-if="isCtrl=='horarioCtrl'"> <i class="icon-home"></i> <span>Volver
+						</span>
+					</a> <a href="#" ng-click="atras(modulo,actividad)"
+						ng-if="isCtrl=='miembroCtrl'"> <i class="icon-home"></i> <span>Volver
+						</span>
+					</a> <a href="#" ng-click="atras(modulo,actividad)"
+						ng-if="isCtrl=='atencionCtrl'"> <i class="icon-home"></i> <span>Volver</span>
+					</a> <a href="#" ng-click="atras(modulo,actividad)"
+						ng-if="isCtrl=='estadisticaCtrl'"> <i class="icon-home"></i> <span>Volver</span>
+					</a> <a href="#" ng-click="atras(modulo,actividad)"
+						ng-if="isCtrl=='inscripcionCtrl' && !accesoDirecto" > <i class="icon-home"></i> <span>Volver</span>
+					</a> 
+					<a href="#" ng-click="accesosDirectos()"
+						ng-if="isCtrl=='inscripcionCtrl' && accesoDirecto" > <i class="icon-home"></i> <span>Volver</span>
+					</a>
+					<a href="#" ng-click="atras(modulo,actividad)"
+						ng-if="isCtrl=='configuracionCtrl'"> <i class="icon-home"></i>
+							<span>Volver</span>
+					</a>
+					
+					</li>
+
+
+
+
+
+
+
+
+				</ul>
+			</div>
+			<!-- /.subnav-collapse -->
+
+		</div>
+		<!-- /container -->
+
+	</div>
+	<!-- /subnavbar-inner -->
+
+</div>
+<!-- /subnavbar -->
